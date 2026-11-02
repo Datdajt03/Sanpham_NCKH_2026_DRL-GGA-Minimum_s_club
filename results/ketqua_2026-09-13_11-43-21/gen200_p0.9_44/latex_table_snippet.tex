@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị gen200_p0.9_44 (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị gen200_p0.9_44 ($|V|=200, |E|=17910, s=2$)}
+\label{tab:results_gen200_p0_9_44}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{1} & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 22.01s \\
+MAB-AOS & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 20.10s \\
+Greedy-AOS & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 20.15s \\
+I-MSM & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 63.37s \\
+CCA & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 0.14s \\
+No-RL & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 20.05s \\
+Fixed & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 20.23s \\
+Random & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 19.83s \\
+\hline
+\end{tabular}
+\end{table}

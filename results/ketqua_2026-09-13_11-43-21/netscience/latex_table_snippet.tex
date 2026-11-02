@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị netscience (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị netscience ($|V|=1589, |E|=4588, s=2$)}
+\label{tab:results_netscience}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{424} & 431.15 $\pm$ 3.23 & 431.0 & 436 & 100.0\% & 123.58s \\
+MAB-AOS & 420 & 429.30 $\pm$ 4.24 & 429.0 & 441 & 100.0\% & 119.37s \\
+Greedy-AOS & 419 & 429.10 $\pm$ 4.75 & 430.0 & 438 & 100.0\% & 108.71s \\
+I-MSM & 390 & 397.40 $\pm$ 2.89 & 398.0 & 402 & 100.0\% & 181.22s \\
+CCA & 381 & 385.80 $\pm$ 2.18 & 386.0 & 389 & 100.0\% & 116.83s \\
+No-RL & 425 & 430.55 $\pm$ 2.44 & 430.5 & 437 & 100.0\% & 106.50s \\
+Fixed & 410 & 426.70 $\pm$ 11.19 & 424.0 & 451 & 100.0\% & 112.01s \\
+Random & 425 & 430.55 $\pm$ 2.44 & 430.5 & 437 & 100.0\% & 95.13s \\
+\hline
+\end{tabular}
+\end{table}

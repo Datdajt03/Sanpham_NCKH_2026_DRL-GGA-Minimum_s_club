@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị johnson8-2-4 (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị johnson8-2-4 ($|V|=28, |E|=210, s=2$)}
+\label{tab:results_johnson8_2_4}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{1} & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 3.16s \\
+MAB-AOS & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 1.19s \\
+Greedy-AOS & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 1.10s \\
+I-MSM & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 0.13s \\
+CCA & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 0.01s \\
+No-RL & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 1.11s \\
+Fixed & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 1.18s \\
+Random & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 1.01s \\
+\hline
+\end{tabular}
+\end{table}

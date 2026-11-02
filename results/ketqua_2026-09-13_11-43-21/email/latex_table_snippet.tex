@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị email (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị email ($|V|=1133, |E|=5451, s=2$)}
+\label{tab:results_email}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{239} & 248.35 $\pm$ 4.60 & 249.0 & 257 & 100.0\% & 80.03s \\
+MAB-AOS & 235 & 244.50 $\pm$ 6.30 & 241.5 & 256 & 100.0\% & 80.51s \\
+Greedy-AOS & 234 & 251.20 $\pm$ 10.93 & 251.0 & 270 & 100.0\% & 82.63s \\
+I-MSM & 232 & 241.25 $\pm$ 3.88 & 242.5 & 247 & 100.0\% & 264.18s \\
+CCA & 220 & 221.90 $\pm$ 1.14 & 222.0 & 224 & 100.0\% & 136.60s \\
+No-RL & 239 & 248.10 $\pm$ 5.86 & 248.0 & 263 & 100.0\% & 71.07s \\
+Fixed & 232 & 240.15 $\pm$ 4.50 & 239.5 & 247 & 100.0\% & 77.25s \\
+Random & 239 & 248.10 $\pm$ 5.86 & 248.0 & 263 & 100.0\% & 67.80s \\
+\hline
+\end{tabular}
+\end{table}

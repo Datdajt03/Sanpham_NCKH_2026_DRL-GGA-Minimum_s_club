@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị C125.9 (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị C125.9 ($|V|=125, |E|=6963, s=2$)}
+\label{tab:results_C125_9}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{1} & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 8.02s \\
+MAB-AOS & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 6.78s \\
+Greedy-AOS & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 6.46s \\
+I-MSM & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 10.57s \\
+CCA & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 0.05s \\
+No-RL & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 6.45s \\
+Fixed & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 6.57s \\
+Random & 1 & 1.00 $\pm$ 0.00 & 1.0 & 1 & 100.0\% & 6.36s \\
+\hline
+\end{tabular}
+\end{table}

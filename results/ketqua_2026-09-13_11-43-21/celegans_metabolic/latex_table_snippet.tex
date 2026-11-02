@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị celegans_metabolic (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị celegans_metabolic ($|V|=453, |E|=2025, s=2$)}
+\label{tab:results_celegans_metabolic}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{29} & 29.65 $\pm$ 1.11 & 29.0 & 33 & 100.0\% & 391.85s \\
+MAB-AOS & 29 & 29.50 $\pm$ 0.74 & 29.0 & 31 & 100.0\% & 391.31s \\
+Greedy-AOS & 29 & 29.25 $\pm$ 0.43 & 29.0 & 30 & 100.0\% & 471.51s \\
+I-MSM & 29 & 29.90 $\pm$ 0.77 & 30.0 & 31 & 100.0\% & 240.34s \\
+CCA & 29 & 29.25 $\pm$ 0.54 & 29.0 & 31 & 100.0\% & 27.12s \\
+No-RL & 29 & 29.75 $\pm$ 0.99 & 29.5 & 33 & 100.0\% & 285.22s \\
+Fixed & 29 & 29.60 $\pm$ 0.73 & 29.0 & 31 & 100.0\% & 361.57s \\
+Random & 29 & 29.75 $\pm$ 0.99 & 29.5 & 33 & 100.0\% & 267.34s \\
+\hline
+\end{tabular}
+\end{table}

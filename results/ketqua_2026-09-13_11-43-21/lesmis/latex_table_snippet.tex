@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị lesmis (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị lesmis ($|V|=77, |E|=262, s=2$)}
+\label{tab:results_lesmis}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{10} & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 5.97s \\
+MAB-AOS & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 4.08s \\
+Greedy-AOS & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 3.89s \\
+I-MSM & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 0.91s \\
+CCA & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 0.10s \\
+No-RL & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 3.94s \\
+Fixed & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 2.81s \\
+Random & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 3.71s \\
+\hline
+\end{tabular}
+\end{table}

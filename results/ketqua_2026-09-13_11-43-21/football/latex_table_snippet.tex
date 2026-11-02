@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị football (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị football ($|V|=115, |E|=613, s=2$)}
+\label{tab:results_football}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{10} & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 7.30s \\
+MAB-AOS & 10 & 10.05 $\pm$ 0.22 & 10.0 & 11 & 100.0\% & 4.96s \\
+Greedy-AOS & 10 & 10.05 $\pm$ 0.22 & 10.0 & 11 & 100.0\% & 4.84s \\
+I-MSM & 11 & 12.55 $\pm$ 0.67 & 13.0 & 14 & 100.0\% & 0.97s \\
+CCA & 13 & 13.95 $\pm$ 0.38 & 14.0 & 15 & 100.0\% & 0.18s \\
+No-RL & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 4.92s \\
+Fixed & 10 & 10.05 $\pm$ 0.22 & 10.0 & 11 & 100.0\% & 3.46s \\
+Random & 10 & 10.00 $\pm$ 0.00 & 10.0 & 10 & 100.0\% & 4.55s \\
+\hline
+\end{tabular}
+\end{table}

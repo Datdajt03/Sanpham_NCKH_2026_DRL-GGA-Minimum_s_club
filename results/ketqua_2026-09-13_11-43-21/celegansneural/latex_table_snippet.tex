@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị celegansneural (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị celegansneural ($|V|=297, |E|=2148, s=2$)}
+\label{tab:results_celegansneural}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{18} & 19.05 $\pm$ 0.97 & 19.0 & 21 & 100.0\% & 151.36s \\
+MAB-AOS & 18 & 19.70 $\pm$ 1.42 & 19.5 & 22 & 100.0\% & 164.30s \\
+Greedy-AOS & 17 & 19.25 $\pm$ 0.89 & 19.0 & 21 & 100.0\% & 189.25s \\
+I-MSM & 20 & 22.25 $\pm$ 1.09 & 22.0 & 24 & 100.0\% & 36.30s \\
+CCA & 17 & 18.55 $\pm$ 0.74 & 18.5 & 20 & 100.0\% & 3.63s \\
+No-RL & 18 & 20.40 $\pm$ 1.36 & 20.0 & 23 & 100.0\% & 133.03s \\
+Fixed & 18 & 19.35 $\pm$ 1.28 & 19.5 & 22 & 100.0\% & 90.67s \\
+Random & 18 & 20.40 $\pm$ 1.36 & 20.0 & 23 & 100.0\% & 120.38s \\
+\hline
+\end{tabular}
+\end{table}

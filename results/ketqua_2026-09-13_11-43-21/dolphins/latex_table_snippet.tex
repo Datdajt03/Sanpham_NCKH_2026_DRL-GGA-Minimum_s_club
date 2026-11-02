@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị dolphins (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị dolphins ($|V|=62, |E|=159, s=2$)}
+\label{tab:results_dolphins}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{13} & 13.20 $\pm$ 0.40 & 13.0 & 14 & 100.0\% & 5.78s \\
+MAB-AOS & 13 & 13.30 $\pm$ 0.46 & 13.0 & 14 & 100.0\% & 4.08s \\
+Greedy-AOS & 13 & 13.45 $\pm$ 0.50 & 13.0 & 14 & 100.0\% & 3.71s \\
+I-MSM & 14 & 14.40 $\pm$ 0.58 & 14.0 & 16 & 100.0\% & 0.53s \\
+CCA & 14 & 14.15 $\pm$ 0.36 & 14.0 & 15 & 100.0\% & 0.13s \\
+No-RL & 13 & 13.35 $\pm$ 0.48 & 13.0 & 14 & 100.0\% & 3.90s \\
+Fixed & 13 & 13.10 $\pm$ 0.30 & 13.0 & 14 & 100.0\% & 3.23s \\
+Random & 13 & 13.35 $\pm$ 0.48 & 13.0 & 14 & 100.0\% & 3.60s \\
+\hline
+\end{tabular}
+\end{table}

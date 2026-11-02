@@ -1,0 +1,20 @@
+% Bảng kết quả so sánh thực nghiệm trên đồ thị jazz (20 seeds)
+\begin{table}[htbp]
+\centering
+\caption{So sánh hiệu năng các thuật toán giải bài toán Minimum $s$-club cover trên đồ thị jazz ($|V|=198, |E|=2742, s=2$)}
+\label{tab:results_jazz}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Thuật toán} & \textbf{Best ($|C|$)} & \textbf{Mean $\pm$ Std} & \textbf{Median} & \textbf{Worst} & \textbf{Feasible} & \textbf{Time (s)} \\
+\hline
+\textbf{PPO-AOS} & \textbf{13} & 13.70 $\pm$ 0.64 & 14.0 & 15 & 100.0\% & 67.43s \\
+MAB-AOS & 13 & 14.15 $\pm$ 1.11 & 14.0 & 18 & 100.0\% & 62.04s \\
+Greedy-AOS & 13 & 14.00 $\pm$ 0.89 & 14.0 & 16 & 100.0\% & 70.97s \\
+I-MSM & 14 & 15.10 $\pm$ 0.54 & 15.0 & 16 & 100.0\% & 26.62s \\
+CCA & 13 & 14.00 $\pm$ 0.55 & 14.0 & 15 & 100.0\% & 1.79s \\
+No-RL & 13 & 13.65 $\pm$ 0.65 & 14.0 & 15 & 100.0\% & 62.34s \\
+Fixed & 13 & 13.95 $\pm$ 0.80 & 14.0 & 16 & 100.0\% & 21.69s \\
+Random & 13 & 13.65 $\pm$ 0.65 & 14.0 & 15 & 100.0\% & 58.40s \\
+\hline
+\end{tabular}
+\end{table}
