@@ -25,7 +25,7 @@ Sanpham_nckh/
 ├── setup.bat                    # [1-CLICK] Cài đặt môi trường tự động (Python, CUDA, thư viện)
 │
 ├── Run.bat/                     # THƯ MỤC CHỨA CÁC RUNNER THỰC NGHIỆM CHI TIẾT
-│   ├── run.bat                  # Thực nghiệm EVO-RL MSCC (30 đồ thị benchmark)
+│   ├── run.bat                  # Thực nghiệm EVO-RL MSCC (tùy chọn đồ thị & siêu tham số)
 │   ├── runbieudo.bat            # Xuất biểu đồ chuẩn 600 DPI (PNG) và vector PDF
 │   ├── run_tong_hop_so_lieu.bat # Tổng hợp số liệu phân tích và đóng gói báo cáo
 │   ├── verify_all.bat           # Bộ kiểm chứng tự động 9 giai đoạn (< 5 giây)
@@ -67,18 +67,14 @@ CHAY_CHUONG_TRINH_TONG.bat
 ```
 *(hoặc phím tắt `CHAY.bat`)*
 
-Giao diện hiển thị Menu trực quan, rõ ràng gồm 11 chức năng (từ 0 đến 11):
-- `[1]` Chạy Test Nhanh (Demo 4 đồ thị)
-- `[2]` Chạy Nhóm 1 - 12 Mạng Thực Tế
-- `[3]` Chạy Nhóm 2 - 18 Đồ Thị DIMACS
-- `[4]` Chạy Toàn Bộ 30 Đồ Thị Benchmark Chuẩn Quốc Tế
-- `[5]` Điền Tên Hoặc Dán Danh Sách Đồ Thị Tùy Chọn
-- `[6]` Chế Độ Chọn Đồ Thị Tương Tác TUI (Phím mũi tên, Space, Enter)
-- `[7]` Tùy Chỉnh Siêu Tham Số Nâng Cao (s, seeds, workers, epochs, pop_size)
-- `[8]` Xuất Biểu Đồ Phân Tích & Hội Tụ (600 DPI PNG & Vector PDF)
-- `[9]` Tổng Hợp Bảng Số Liệu Báo Cáo & Kiểm Định Wilcoxon
-- `[10]` Kiểm Tra Toàn Diện Hệ Thống (9 giai đoạn kiểm chứng)
-- `[11]` Thiết Lập Môi Trường & GPU (CUDA)
+Giao diện hiển thị Menu trực quan, rõ ràng gồm 7 chức năng (từ 0 đến 7):
+- `[1]` Điền Tên Hoặc Dán Danh Sách Đồ Thị Tùy Chọn
+- `[2]` Chế Độ Chọn Đồ Thị Tương Tác TUI (Phím mũi tên, Space, Enter)
+- `[3]` Tùy Chỉnh Siêu Tham Số Nâng Cao (s, seeds, workers, epochs, pop_size)
+- `[4]` Xuất Biểu Đồ Phân Tích & Hội Tụ (600 DPI PNG & Vector PDF)
+- `[5]` Tổng Hợp Bảng Số Liệu Báo Cáo & Kiểm Định Wilcoxon
+- `[6]` Kiểm Tra Toàn Diện Hệ Thống (9 giai đoạn kiểm chứng)
+- `[7]` Thiết Lập Môi Trường & GPU (CUDA)
 - `[0]` Thoát chương trình
 
 #### Cách 2: Khởi chạy trực tiếp bằng Python

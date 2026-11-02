@@ -32,7 +32,15 @@ if exist "%SCRIPT_DIR%.venv\Scripts\python.exe" (
     set "PYTHON_CMD=C:\miniconda3\python.exe"
 )
 
-:: Neu nguoi dung truyen tham so tu dong lenh (CLI), thuc thi truc tiep khong qua menu
+:: Kiem tra doi so dong lenh truc tiep (neu co)
+if "%~1"=="0" goto exit_prog
+if "%~1"=="1" goto opt_custom_name
+if "%~1"=="2" goto opt_tui
+if "%~1"=="3" goto opt_advanced
+if /i "%~1"=="--tui" goto opt_tui
+if /i "%~1"=="--custom" goto opt_custom_name
+
+:: Neu nguoi dung truyen tham so CLI khac (vi du: --graph, --all, -h...), thuc thi truc tiep khong qua menu
 if not "%~1"=="" (
     "%PYTHON_CMD%" "%SCRIPT_DIR%main.py" %*
     goto end
@@ -47,53 +55,21 @@ echo  * Cau hinh mac dinh: 20 Seeds co dinh (seedun.md) - 10 Workers da luong CP
 echo  * Bo tang toc PPO: GPU NVIDIA Tensor Cores / CUDA Auto-Boost
 echo ================================================================================
 echo.
-echo  [1] Chay Test Nhanh (Demo: karate, chesapeake, dolphins, johnson8-2-4)
-echo  [2] Chay Nhom Type 1 (12 Mang thuc te: karate, jazz, email, netscience...)
-echo  [3] Chay Nhom Type 2 (18 Do thi DIMACS: johnson, brock, gen, san, hamming...)
-echo  [4] Chay Toan Bo 30 Do Thi Benchmark Chuan (Type 1 + Type 2)
-echo  [5] Dien Ten Do Thi Tuy Chon (Nhap / Dan danh sach ten do thi tuy y)
-echo  [6] Che do Chon Do Thi Tuong Tac TUI (Dung phim mui ten, Space, Enter)
-echo  [7] Tuy chinh Sieu tham so nang cao (s, seeds, workers, epochs, pop_size)
-echo  [8] Thoat
+echo  [1] Dien Ten Do Thi Tuy Chon (Nhap / Dan danh sach ten do thi tuy y)
+echo  [2] Che do Chon Do Thi Tuong Tac TUI (Dung phim mui ten, Space, Enter)
+echo  [3] Tuy chinh Sieu tham so nang cao (s, seeds, workers, epochs, pop_size)
+echo  [0] Thoat
 echo.
 echo ================================================================================
 
 set "choice="
-set /p choice=">> Nhap lua chon cua ban (1-8): "
+set /p choice=">> Nhap lua chon cua ban (0-3): "
 
-if "%choice%"=="1" goto opt_demo
-if "%choice%"=="2" goto opt_type1
-if "%choice%"=="3" goto opt_type2
-if "%choice%"=="4" goto opt_all_benchmark
-if "%choice%"=="5" goto opt_custom_name
-if "%choice%"=="6" goto opt_tui
-if "%choice%"=="7" goto opt_advanced
-if "%choice%"=="8" goto exit_prog
+if "%choice%"=="1" goto opt_custom_name
+if "%choice%"=="2" goto opt_tui
+if "%choice%"=="3" goto opt_advanced
+if "%choice%"=="0" goto exit_prog
 goto invalid
-
-:opt_demo
-echo.
-echo [*] Bat dau chay Test Demo tren 4 do thi...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "karate,chesapeake,dolphins,johnson8-2-4"
-goto end
-
-:opt_type1
-echo.
-echo [*] Bat dau chay 12 do thi Nhom Type 1 (Real-world Complex Networks)...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "karate,chesapeake,dolphins,lesmis,polbooks,adjnoun,football,jazz,celegansneural,netscience,celegans_metabolic,email"
-goto end
-
-:opt_type2
-echo.
-echo [*] Bat dau chay 18 do thi Nhom Type 2 (DIMACS Clique Instances)...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "johnson8-2-4,hamming6-2,hamming6-4,johnson8-4-4,MANN_a9,C125.9,johnson16-2-4,keller4,c-fat200-1,c-fat200-5,brock200_1,brock200_2,brock200_3,gen200_p0.9_44,gen200_p0.9_55,san200_0.9_2,san200_0.9_3,hamming8-2"
-goto end
-
-:opt_all_benchmark
-echo.
-echo [*] Bat dau chay toan bo 30 do thi Benchmark chuan...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --all
-goto end
 
 :opt_custom_name
 echo.
@@ -108,13 +84,16 @@ echo   - Sau khi nhan ENTER, he thong se tu dong nhan dien va dem so luong do th
 echo ================================================================================
 echo.
 set "custom_graphs="
-set /p custom_graphs=">> Nhap / Dan danh sach do thi: "
+set /p custom_graphs=">> Nhap / Dan danh sach do thi (hoac '0' de quay lai): "
 if "%custom_graphs%"=="" (
     echo [!] Ban chua nhap ten do thi nao.
     echo.
     pause
     goto menu
 )
+if "%custom_graphs%"=="0" goto menu
+if /i "%custom_graphs%"=="q" goto menu
+if /i "%custom_graphs%"=="exit" goto menu
 echo.
 echo [*] Dang chuyen danh sach do thi sang bo xu ly EVO-RL...
 "%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "%custom_graphs%"
@@ -132,7 +111,10 @@ echo ===========================================================================
 echo                      TUY CHINH SIEU THAM SO NANG CAO
 echo ================================================================================
 set "dset_in="
-set /p dset_in=">> Danh sach do thi (hoac 'all' / ten do thi) [mac dinh 'karate,jazz']: "
+set /p dset_in=">> Danh sach do thi (hoac 'all' / ten do thi, '0' de quay lai) [mac dinh 'karate,jazz']: "
+if "%dset_in%"=="0" goto menu
+if /i "%dset_in%"=="q" goto menu
+if /i "%dset_in%"=="exit" goto menu
 if "%dset_in%"=="" set "dset_in=karate,jazz"
 set "s_in="
 set /p s_in=">> Nguong duong kinh s-club (s) [mac dinh 2]: "
@@ -161,7 +143,7 @@ goto end
 
 :invalid
 echo.
-echo [!] Lua chon khong hop le. Vui long chon tu 1 den 8.
+echo [!] Lua chon khong hop le. Vui long chon tu 0 den 3.
 echo.
 pause
 goto menu
@@ -172,9 +154,11 @@ echo ===========================================================================
 echo  [V] Phien chay da hoan tat. Ket qua duoc luu tai thu muc: results/
 echo ================================================================================
 echo.
+if not "%~1"=="" exit /b 0
 pause
 goto menu
 
 :exit_prog
 echo.
 echo Tam biet!
+exit /b 0

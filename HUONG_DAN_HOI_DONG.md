@@ -21,19 +21,15 @@ Nhóm nghiên cứu trân trọng gửi tới Quý Hội đồng toàn bộ gói
 
 #### Giao diện Menu Điều khiển Trực quan (`CHAY_CHUONG_TRINH_TONG.bat`):
 * **`--- [A] CHƯƠNG TRÌNH THỰC NGHIỆM (EVO-RL MSCC) ---`**
-  * **`[1]` Chạy Test Nhanh:** Thử nghiệm ngay trên 4 đồ thị nhỏ (`karate`, `chesapeake`, `dolphins`, `johnson8-2-4`).
-  * **`[2]` Chạy Nhóm 1 - 12 Mạng Thực Tế:** Thực nghiệm nhóm mạng phức Type 1 (`karate`, `jazz`, `email`, `netscience`...).
-  * **`[3]` Chạy Nhóm 2 - 18 Đồ Thị DIMACS:** Thực nghiệm nhóm đồ thị chuẩn DIMACS Type 2 (`johnson`, `brock`, `gen`, `san`...).
-  * **`[4]` Chạy Toàn Bộ 30 Đồ Thị Benchmark:** Thực nghiệm đầy đủ 30 đồ thị chuẩn quốc tế (Type 1 + Type 2).
-  * **`[5]` Tùy Chọn Đồ Thị Theo Tên:** Nhập hoặc dán danh sách tên đồ thị tùy ý để chạy.
-  * **`[6]` Giao Diện Tương Tác Chọn Đồ Thị TUI:** Dùng phím mũi tên [▲/▼], phím Space [X] và Enter để chọn đồ thị.
-  * **`[7]` Tùy Chỉnh Siêu Tham Số Nâng Cao:** Thiết lập $s$, số seeds (mặc định 20), số workers (10), epochs (200), pop_size (100).
+  * **`[1]` Tùy Chọn Đồ Thị Theo Tên:** Nhập hoặc dán danh sách tên đồ thị tùy ý để chạy.
+  * **`[2]` Giao Diện Tương Tác Chọn Đồ Thị TUI:** Dùng phím mũi tên [▲/▼], phím Space [X] và Enter để chọn đồ thị trực quan.
+  * **`[3]` Tùy Chỉnh Siêu Tham Số Nâng Cao:** Thiết lập $s$, số seeds (mặc định 20), số workers (10), epochs (200), pop_size (100).
 * **`--- [B] XUẤT BIỂU ĐỒ, SỐ LIỆU VÀ BÁO CÁO KHOA HỌC ---`**
-  * **`[8]` Xuất Biểu Đồ Phân Tích & Hội Tụ:** Tự động tạo thư mục `Chart_seed/` chứa 7 biểu đồ 600 DPI (PNG) và Vector PDF.
-  * **`[9]` Tổng Hợp Bảng Số Liệu Báo Cáo:** Trích xuất tự động ma trận kết quả 30 đồ thị, CSV và báo cáo Markdown.
+  * **`[4]` Xuất Biểu Đồ Phân Tích & Hội Tụ:** Tự động tạo thư mục `Chart_seed/` chứa 7 biểu đồ 600 DPI (PNG) và Vector PDF.
+  * **`[5]` Tổng Hợp Bảng Số Liệu Báo Cáo:** Trích xuất tự động ma trận kết quả 30 đồ thị, CSV và báo cáo Markdown.
 * **`--- [C] CÔNG CỤ VÀ TIỆN ÍCH HỆ THỐNG ---`**
-  * **`[10]` Kiểm Tra Toàn Diện Hệ Thống:** Chạy tự động 9 giai đoạn kiểm chứng (< 5 giây).
-  * **`[11]` Thiết Lập Môi Trường & GPU:** Cài đặt thư viện tự động và kiểm tra card đồ họa NVIDIA CUDA.
+  * **`[6]` Kiểm Tra Toàn Diện Hệ Thống:** Chạy tự động 9 giai đoạn kiểm chứng (< 5 giây).
+  * **`[7]` Thiết Lập Môi Trường & GPU:** Cài đặt thư viện tự động và kiểm tra card đồ họa NVIDIA CUDA.
   * **`[0]` Thoát chương trình.**
 
 ---
@@ -41,7 +37,7 @@ Nhóm nghiên cứu trân trọng gửi tới Quý Hội đồng toàn bộ gói
 ### 2. KIỂM CHỨNG NHANH TOÀN HỆ THỐNG TRONG 5 GIÂY
 
 Để đánh giá nhanh tính toàn vẹn của mã nguồn, thư viện và dữ liệu trước khi nghiệm thu:
-* **Cách 1:** Chọn phím **`[10]`** trong `CHAY_CHUONG_TRINH_TONG.bat`.
+* **Cách 1:** Chọn phím **`[6]`** trong `CHAY_CHUONG_TRINH_TONG.bat`.
 * **Cách 2:** Mở thư mục **`Run.bat/`** và nhấp đúp `verify_all.bat`.
 * **Cách 3:** Chạy lệnh Terminal: `python verify_system.py`.
 
@@ -64,7 +60,7 @@ Sanpham_nckh/
 ├── setup.bat                    <-- Cài đặt môi trường tự động (Python, CUDA, thư viện)
 │
 ├── Run.bat/                     <-- THƯ MỤC CHỨA CÁC RUNNER CHI TIẾT:
-│   ├── run.bat                  <-- Runner thực nghiệm EVO-RL MSCC (30 đồ thị)
+│   ├── run.bat                  <-- Runner thực nghiệm EVO-RL MSCC (tùy chọn đồ thị & siêu tham số)
 │   ├── runbieudo.bat            <-- Xuất biểu đồ chuẩn 600 DPI & Vector PDF (Chart_seed)
 │   ├── run_tong_hop_so_lieu.bat <-- Trích xuất và tổng hợp báo cáo số liệu
 │   ├── verify_all.bat           <-- Kiểm chứng tự động 9 giai đoạn mã nguồn

@@ -282,8 +282,8 @@ echo  Toan bo he sinh thai thuc nghiem EVO-RL da san sang hoat dong:
 echo   - CHAY_CHUONG_TRINH_TONG.bat: Chuong trinh Tong quan ly tat ca tinh nang (Khuyen nghi)
 echo   - setup.bat                 : Cai dat va cau hinh moi truong tu dong
 echo   - Run.bat\                  : Thu muc chua toan bo runner thuc nghiem chi tiet:
-echo       * run.bat               : Thuc nghiem EVO-RL MSCC (30 do thi benchmark)
-echo       * runbieudo.bat         : Xuat bieu do phan tich & hoi tu (600 DPI)
+echo       * run.bat               : Thuc nghiem EVO-RL MSCC (Tuy chon do thi ^& sieu tham so)
+echo       * runbieudo.bat         : Xuat bieu do phan tich ^& hoi tu (600 DPI)
 echo       * run_tong_hop_so_lieu.bat : Tong hop so lieu phan tich toan dien
 echo       * verify_all.bat        : Kiem tra xac thuc 9 giai doan he thong
 echo ===============================================================================
