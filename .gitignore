@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data folder: Bỏ qua toàn bộ dữ liệu trong pbodulieu nhưng giữ lại thư mục
+pbodulieu/*
+!pbodulieu/.gitkeep
+
+# Environments & IDE
+.env
+venv/
+env/
+.venv/
+.vscode/
+.idea/
