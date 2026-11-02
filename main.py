@@ -410,44 +410,126 @@ def parse_graph_selection(input_str: str, graph_names: list, graph_files: dict) 
 
 def interactive_menu(graph_files: dict, config: ExperimentConfig) -> tuple:
     """
-    Hiển thị Menu tương tác dạng TUI chọn bằng phím mũi tên [▲/▼], phím [I] chọn và [O] hoàn tất.
+    Menu điều khiển tương tác trực quan (Master Console Menu) cho EVO-RL MSCC.
     """
-    selected_targets = interactive_dataset_selector(graph_files)
-    if not selected_targets:
-        print("[!] Không có đồ thị nào được chọn. Đang thoát.")
-        sys.exit(0)
+    graph_names = list(graph_files.keys())
+    type1_graphs = [
+        'karate', 'chesapeake', 'dolphins', 'lesmis', 'polbooks',
+        'adjnoun', 'football', 'jazz', 'celegansneural', 'netscience',
+        'celegans_metabolic', 'email'
+    ]
+    type2_graphs = [
+        'johnson8-2-4', 'johnson8-4-4', 'johnson16-2-4', 'MANN_a9', 'C125.9',
+        'hamming6-2', 'hamming6-4', 'hamming8-2',
+        'keller4', 'c-fat200-1', 'c-fat200-5', 'brock200_1', 'brock200_2',
+        'brock200_3', 'gen200_p0.9_44', 'gen200_p0.9_55', 'san200_0.9_2',
+        'san200_0.9_3'
+    ]
+    demo_graphs = ['karate', 'chesapeake', 'dolphins', 'johnson8-2-4']
 
-    # Tùy chỉnh tham số nhanh nếu muốn
-    print("\n--- Cấu hình siêu tham số hiện tại ---")
-    print(f"  * s-club diameter threshold (s) : {config.s_club_threshold}")
-    print(f"  * Số thế hệ (Max Generations)    : {config.max_generations}")
-    print(f"  * Số hạt giống (Seeds)          : {config.num_seeds}")
-    print(f"  * Số workers song song (Workers): {config.num_workers}")
-    print(f"  * Kích thước quần thể (Pop Size): {config.pop_size}")
-    
-    custom = input(">> Nhấn [ENTER] để bắt đầu chạy ngay, hoặc nhập [c] để chỉnh sửa tham số: ").strip()
-    if custom.lower() in ('c', 'custom', 'edit'):
-        try:
-            s_in = input(f"   Nhập s [{config.s_club_threshold}]: ").strip()
-            if s_in: config.s_club_threshold = int(s_in)
-            
-            gen_in = input(f"   Nhập số thế hệ [{config.max_generations}]: ").strip()
-            if gen_in: 
-                config.max_generations = int(gen_in)
-                config.max_epochs = int(gen_in)
-                
-            seeds_in = input(f"   Nhập số seeds [{config.num_seeds}]: ").strip()
-            if seeds_in: config.num_seeds = int(seeds_in)
+    while True:
+        print("\n" + "=" * 80)
+        print("     🚀 HỆ THỐNG PHẦN MỀM TỔNG HỢP NCKH - EVO-RL MSCC FRAMEWORK")
+        print("   Tối Ưu Hóa Tiến Hóa Kết Hợp Học Tăng Cường Sâu (PPO-AOS) Cho Minimum s-Club Cover")
+        print("=" * 80)
+        print(f"  * Số đồ thị benchmark tìm thấy: {len(graph_names)} đồ thị (12 Real-world Type 1 + 18 DIMACS Type 2)")
+        print(f"  * Cấu hình mặc định: s={config.s_club_threshold}, seeds={config.num_seeds}, workers={config.num_workers}, epochs={config.max_generations}, pop_size={config.pop_size}")
+        print("=" * 80)
+        print("\n --- [A] CHƯƠNG TRÌNH THỰC NGHIỆM MÔ HÌNH (EVO-RL MSCC) ---")
+        print("  [1] Chạy Thử Nhanh (Demo 4 đồ thị: karate, chesapeake, dolphins, johnson8-2-4)")
+        print("  [2] Chạy Nhóm 1 - 12 Mạng Thực Tế (Type 1: karate, jazz, email, netscience...)")
+        print("  [3] Chạy Nhóm 2 - 18 Đồ Thị Chuẩn DIMACS (Type 2: johnson, brock, gen, san...)")
+        print("  [4] Chạy Toàn Bộ 30 Đồ Thị Benchmark Chuẩn Quốc Tế (Type 1 + Type 2)")
+        print("  [5] Tự Nhập / Dán Danh Sách Tên Đồ Thị Tùy Chọn")
+        print("  [6] Giao Diện Tương Tác Chọn Đồ Thị TUI (Phím mũi tên, Space, Enter)")
+        print("  [7] Tùy Chỉnh Siêu Tham Số Nâng Cao (s, seeds, workers, epochs, pop_size)")
+        print("\n --- [B] PHÂN TÍCH, XUẤT BIỂU ĐỒ & BÁO CÁO KHOA HỌC ---")
+        print("  [8] Xuất Toàn Bộ Biểu Đồ Phân Tích & Hội Tụ (600 DPI PNG & Vector PDF)")
+        print("  [9] Tổng Hợp Bảng Số Liệu Báo Cáo & Kiểm Định Thống Kê Wilcoxon")
+        print("\n --- [C] CÔNG CỤ & TIỆN ÍCH HỆ THỐNG ---")
+        print("  [10] Kiểm Tra Toàn Diện Hệ Thống (9 giai đoạn kiểm chứng tự động)")
+        print("  [11] Kiểm Tra Môi Trường & GPU (check_env.py)")
+        print("\n  [0] Thoát chương trình")
+        print("=" * 80)
 
-            workers_in = input(f"   Nhập số workers song song [{config.num_workers}]: ").strip()
-            if workers_in: config.num_workers = int(workers_in)
-            
-            pop_in = input(f"   Nhập pop_size [{config.pop_size}]: ").strip()
-            if pop_in: config.pop_size = int(pop_in)
-        except Exception as ex:
-            print(f"   [!] Nhập lỗi ({ex}), sử dụng giá trị mặc định.")
+        choice = input(">> Nhập lựa chọn của bạn (0-11): ").strip()
+        if choice == '1':
+            selected = [g for g in demo_graphs if g in graph_files]
+            return selected, config
+        elif choice == '2':
+            selected = [g for g in type1_graphs if g in graph_files]
+            return selected, config
+        elif choice == '3':
+            selected = [g for g in type2_graphs if g in graph_files]
+            return selected, config
+        elif choice == '4':
+            return list(graph_names), config
+        elif choice == '5':
+            c_input = input("\n>> Nhập hoặc dán danh sách tên đồ thị (cách nhau bởi dấu phẩy hoặc khoảng trắng): ").strip()
+            if not c_input:
+                print("[!] Chưa nhập tên đồ thị nào.")
+                continue
+            selected = parse_graph_selection(c_input, graph_names, graph_files)
+            if not selected:
+                print(f"[!] Không tìm thấy đồ thị nào khớp với '{c_input}'.")
+                continue
+            return selected, config
+        elif choice == '6':
+            selected = interactive_dataset_selector(graph_files)
+            if not selected:
+                print("[!] Không có đồ thị nào được chọn.")
+                continue
+            return selected, config
+        elif choice == '7':
+            print("\n--- Tùy chỉnh siêu tham số nâng cao ---")
+            dset_in = input(f"   Danh sách đồ thị (hoặc 'all') [mặc định 'karate,jazz']: ").strip()
+            if not dset_in:
+                dset_in = "karate,jazz"
+            selected = parse_graph_selection(dset_in, graph_names, graph_files)
+            if not selected:
+                selected = ['karate']
 
-    return selected_targets, config
+            try:
+                s_in = input(f"   Ngưỡng đường kính s-club [{config.s_club_threshold}]: ").strip()
+                if s_in: config.s_club_threshold = int(s_in)
+                gen_in = input(f"   Số thế hệ / epochs [{config.max_generations}]: ").strip()
+                if gen_in:
+                    config.max_generations = int(gen_in)
+                    config.max_epochs = int(gen_in)
+                seeds_in = input(f"   Số seeds [{config.num_seeds}]: ").strip()
+                if seeds_in: config.num_seeds = int(seeds_in)
+                workers_in = input(f"   Số workers song song [{config.num_workers}]: ").strip()
+                if workers_in: config.num_workers = int(workers_in)
+                pop_in = input(f"   Kích thước quần thể pop_size [{config.pop_size}]: ").strip()
+                if pop_in: config.pop_size = int(pop_in)
+            except Exception as ex:
+                print(f"   [!] Nhập lỗi ({ex}), sử dụng giá trị mặc định.")
+            return selected, config
+        elif choice == '8':
+            import subprocess
+            subprocess.run([sys.executable, os.path.join(current_dir, "analysis", "render_enhanced_charts.py")])
+            input("\n>> Nhấn [ENTER] để quay lại menu chính...")
+            continue
+        elif choice == '9':
+            import subprocess
+            subprocess.run([sys.executable, os.path.join(current_dir, "Tong_hop_so_lieu_phan_bien", "extract_and_consolidate.py")])
+            input("\n>> Nhấn [ENTER] để quay lại menu chính...")
+            continue
+        elif choice == '10':
+            import subprocess
+            subprocess.run([sys.executable, os.path.join(current_dir, "verify_system.py")])
+            input("\n>> Nhấn [ENTER] để quay lại menu chính...")
+            continue
+        elif choice == '11':
+            import subprocess
+            subprocess.run([sys.executable, os.path.join(current_dir, "check_env.py")])
+            input("\n>> Nhấn [ENTER] để quay lại menu chính...")
+            continue
+        elif choice in ('0', 'q', 'exit', 'quit'):
+            print("\n[*] Đang thoát. Cảm ơn bạn đã sử dụng EVO-RL MSCC Framework!")
+            sys.exit(0)
+        else:
+            print("[!] Lựa chọn không hợp lệ. Vui lòng nhập từ 0 đến 11.")
 
 
 def main():
@@ -456,6 +538,7 @@ def main():
     parser.add_argument("--graph", type=str, default=None, help="Tên hoặc danh sách file đồ thị (vd: 'karate,jazz' hoặc 'johnson8-2-4.clq')")
     parser.add_argument("--run", type=str, default=None, help="Chỉ số hoặc dải đồ thị để chạy tự động (vd: '1,3,5' hoặc '1-5')")
     parser.add_argument("--all", action="store_true", help="Chạy tất cả đồ thị tìm thấy")
+    parser.add_argument("--tui", action="store_true", help="Mở giao diện bảng tương tác TUI chọn đồ thị")
     parser.add_argument("--out_dir", type=str, default=os.path.join(current_dir, "results"), help="Thư mục lưu kết quả")
     parser.add_argument("--s", type=int, default=2, help="Ngưỡng đường kính s-club (mặc định s=2)")
     parser.add_argument("--epochs", type=int, default=200, help="Số thế hệ / epochs (mặc định 200)")
@@ -514,8 +597,13 @@ def main():
             return
     elif args.all:
         selected_targets = list(graph_names)
+    elif args.tui:
+        selected_targets = interactive_dataset_selector(graph_files)
+        if not selected_targets:
+            print("\n[!] Không có đồ thị nào được chọn.")
+            return
     else:
-        # Chế độ tương tác qua Menu Console (Interactive TUI Mode)
+        # Chế độ tương tác qua Menu Console (Interactive Master Console Menu)
         selected_targets, config = interactive_menu(graph_files, config)
         if not selected_targets:
             print("\n[!] Không có đồ thị nào được chọn.")

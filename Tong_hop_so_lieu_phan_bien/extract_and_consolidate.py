@@ -1,9 +1,6 @@
 """
 Tong_hop_so_lieu_phan_bien/extract_and_consolidate.py
-Tự động tổng hợp và phân tích toàn diện số liệu thực nghiệm từ 3 thư mục kết quả:
-  1. Thư mục 1: results/ (Bài 1 - Kết quả giải thuật EVO-RL trên 30 đồ thị benchmark)
-  2. Thư mục 2: Bai_2_DeepRL_AOS_Suitability/results_bai2/ (Bài 2 - Đánh giá tính phù hợp DRL AOS)
-  3. Thư mục 3: Bai_3_Cost_Benefit_Analysis/results_bai3/ (Bài 3 - Bóc tách chi phí tính toán & Overhead)
+Tự động tổng hợp và phân tích toàn diện số liệu thực nghiệm giải thuật EVO-RL MSCC từ thư mục results/ (30 đồ thị benchmark x 20 seeds).
 
 Đặc điểm nâng cấp toàn diện:
   - Cho phép tùy chọn linh hoạt thư mục kết quả (Folder Selection: Ngày 30, Ngày 15, v.v.).
@@ -41,29 +38,11 @@ if sys.stderr is not None:
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PARENT_OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 3 Thư mục kết quả nguồn với cơ chế fallback tự động
+# Thư mục kết quả nguồn với cơ chế fallback tự động
 DIR_RESULTS_1_CANDIDATES = [
     os.path.join(BASE_DIR, "results"),
     os.path.join(BASE_DIR, "..", "results"),
 ]
-
-DIR_RESULTS_2_CANDIDATES = [
-    os.path.join(BASE_DIR, "Bai_2_DeepRL_AOS_Suitability", "results_bai2"),
-    os.path.join(BASE_DIR, "Run_project_Bai_2_DeepRL_AOS_Suitability", "results_bai2"),
-    os.path.join(BASE_DIR, "DeepRL_AOS_Suitability", "results_bai2"),
-    os.path.join(BASE_DIR, "..", "Bai_2_DeepRL_AOS_Suitability", "results_bai2"),
-    os.path.join(BASE_DIR, "..", "Run_project_Bai_2_DeepRL_AOS_Suitability", "results_bai2"),
-]
-DIR_RESULTS_2 = next((p for p in DIR_RESULTS_2_CANDIDATES if os.path.exists(p)), DIR_RESULTS_2_CANDIDATES[0])
-
-DIR_RESULTS_3_CANDIDATES = [
-    os.path.join(BASE_DIR, "Bai_3_Cost_Benefit_Analysis", "results_bai3"),
-    os.path.join(BASE_DIR, "Run_project_Bai_3_Cost_Benefit_Analysis", "results_bai3"),
-    os.path.join(BASE_DIR, "Cost_Benefit_Analysis", "results_bai3"),
-    os.path.join(BASE_DIR, "..", "Bai_3_Cost_Benefit_Analysis", "results_bai3"),
-    os.path.join(BASE_DIR, "..", "Run_project_Bai_3_Cost_Benefit_Analysis", "results_bai3"),
-]
-DIR_RESULTS_3 = next((p for p in DIR_RESULTS_3_CANDIDATES if os.path.exists(p)), DIR_RESULTS_3_CANDIDATES[0])
 
 # Danh sách 30 đồ thị chuẩn được phân nhóm chính xác theo báo cáo
 TYPE1_GRAPHS = [
@@ -368,12 +347,12 @@ def process_benchmark_results(
     graph_entries: List[Tuple[str, Dict[str, Any], str]] = []
 
     if isinstance(source_target, dict):
-        print(f"\n[1/3] Đang xử lý tập dữ liệu Hợp nhất thông minh ({len(source_target)} đồ thị)...")
+        print(f"\n[*] Đang xử lý tập dữ liệu Hợp nhất thông minh ({len(source_target)} đồ thị)...")
         for g_name, (src_name, data) in sorted(source_target.items()):
             graph_entries.append((g_name, data, src_name))
     else:
         target_folder = str(source_target)
-        print(f"\n[1/3] Đang xử lý Thư mục kết quả chính: {target_folder}")
+        print(f"\n[*] Đang xử lý Thư mục kết quả chính: {target_folder}")
         graph_folders = sorted([
             d for d in os.listdir(target_folder)
             if os.path.isdir(os.path.join(target_folder, d)) and d != 'charts'
@@ -509,46 +488,8 @@ def process_benchmark_results(
     return df
 
 
-def process_bai3_overhead(bai3_dir: str) -> Optional[pd.DataFrame]:
-    """Xử lý Thư mục 3: Bóc tách chi phí PPO Overhead."""
-    print(f"\n[2/3] Đang xử lý Thư mục Bài 3 (Overhead): {bai3_dir}")
-    cost_file = os.path.join(bai3_dir, "results_bai3_cost_profile.csv")
-    if not os.path.exists(cost_file):
-        print(f"    [!] Chưa tìm thấy {cost_file}.")
-        return None
-
-    try:
-        df = pd.read_csv(cost_file)
-        if 'runtime_ppo_inference' in df.columns and 'runtime_ppo_update' in df.columns:
-            df['ppo_total_time'] = df['runtime_ppo_inference'] + df['runtime_ppo_update']
-            df['ppo_overhead_pct'] = (df['ppo_total_time'] / df['runtime_total']) * 100.0
-            df['graph_ops_time'] = df['runtime_total'] - df['ppo_total_time']
-            df['graph_ops_pct'] = (df['graph_ops_time'] / df['runtime_total']) * 100.0
-        return df
-    except Exception as e:
-        print(f"    [!] Lỗi khi đọc file Bài 3: {e}")
-        return None
-
-
-def process_bai2_runs(bai2_dir: str) -> Optional[pd.DataFrame]:
-    """Xử lý Thư mục 2: Phân tích chi tiết từng lượt chạy Bài 2."""
-    print(f"\n[3/3] Đang xử lý Thư mục Bài 2: {bai2_dir}")
-    runs_file = os.path.join(bai2_dir, "results_bai2_runs.csv")
-    if not os.path.exists(runs_file):
-        print(f"    [!] Chưa tìm thấy {runs_file}.")
-        return None
-
-    try:
-        df = pd.read_csv(runs_file)
-        return df
-    except Exception as e:
-        print(f"    [!] Lỗi khi đọc file Bài 2: {e}")
-        return None
-
-
 def generate_master_markdown_report(
     df_main: pd.DataFrame, 
-    df_bai3: Optional[pd.DataFrame], 
     output_path: str,
     details_rel_path: str
 ):
@@ -601,27 +542,10 @@ def generate_master_markdown_report(
             f.write(f"| {g_link} | {r['Type']} | {algo_bold} | {r['Init_Cover_f0']} | **{r['Best_Cover_|C|min']}** | {r['Mean_Cover']} $\\pm$ {r['Std_Cover']} | {r['Actual_Generations']} | {r['Fitness_Evaluations_N_evals']} | {r['Mean_Time_Sec']}s | {r['Holm_Bonferroni_P']} | `{r['Significance']}` |\n")
 
         f.write("\n---\n\n")
-        f.write("### 4. BÓC TÁCH CHI PHÍ THỜI GIAN VÀ THỜI GIAN HUẤN LUYỆN PPO (DRL OVERHEAD)\n\n")
-        f.write("**Khẳng định dứt khoát:**\n")
-        f.write("1. Hệ thống áp dụng **Online Adaptive Operator Selection (Online AOS)**: Mạng PPO học trực tuyến trong quá trình giải trên từng đồ thị, không có pha huấn luyện offline.\n")
-        f.write("2. Thời gian `Mean_Time_Sec` trong báo cáo là **Wall-clock Runtime**, **ĐÃ BAO GỒM 100% thời gian trích xuất State, thời gian suy luận nơ-ron (Inference), và thời gian huấn luyện gradient descent (Training Update)**.\n\n")
-
-        if df_bai3 is not None and not df_bai3.empty:
-            f.write("| Đồ thị | Thuật toán | Tổng Runtime | Xử lý Đồ thị (Graph Ops) | PPO Suy luận (Infer) | PPO Huấn luyện (Update) | Tỷ lệ PPO Overhead (%) |\n")
-            f.write("| :--- | :--- | :---: | :---: | :---: | :---: | :---: |\n")
-            for _, r in df_bai3.iterrows():
-                infer = round(r.get('runtime_ppo_inference', 0.0), 3)
-                update = round(r.get('runtime_ppo_update', 0.0), 3)
-                total = round(r.get('runtime_total', 0.0), 2)
-                graph_ops = round(r.get('graph_ops_time', total - infer - update), 2)
-                overhead = round(r.get('ppo_overhead_pct', 0.0), 1)
-                f.write(f"| `{r['dataset']}` | **{r['method']}** | **{total}s** | {graph_ops}s | {infer}s | {update}s | **{overhead}%** |\n")
-
-        f.write("\n---\n\n")
-        f.write("### 5. TỔNG KẾT VỀ TÍNH CÔNG BẰNG VÀ TÀI NGUYÊN TÍNH TOÁN\n")
+        f.write("### 4. TỔNG KẾT VỀ TÍNH CÔNG BẰNG VÀ TÀI NGUYÊN TÍNH TOÁN\n")
         f.write("1. **Về tính tương đương khởi tạo:** 6 giải thuật GA dùng chung 100% quần thể ban đầu $P_0$. 2 heuristic tham lam I-MSM và CCA sử dụng cơ chế multi-start riêng biệt do cấu trúc giải thuật khác biệt.\n")
         f.write("2. **Về ngân sách tìm kiếm:** Tất cả các giải thuật GA đều có cùng trần ngân sách ($4,100$ evals). PPO-AOS dừng sớm hơn do hội tụ nhanh hơn, chứ không phải do bất bình đẳng về tài nguyên.\n")
-        f.write("3. **Về thời gian huấn luyện PPO:** Thời gian huấn luyện PPO đã được tính gộp đầy đủ vào Runtime và chỉ chiếm 10% - 15% tổng thời gian.\n")
+        f.write("3. **Về thời gian vận hành PPO:** Thời gian `Mean_Time_Sec` là Wall-clock Runtime, đã bao gồm 100% thời gian trích xuất State, thời gian suy luận nơ-ron (Inference), và thời gian huấn luyện gradient descent (Online Training Update).\n")
 
 
 def interactive_select_source() -> Tuple[str, Any]:
@@ -781,38 +705,21 @@ def main():
     df_main.to_csv(csv_compat_path, index=False, encoding='utf-8-sig')
     print(f"    -> Đã xuất bảng CSV tổng hợp: {csv_dynamic_path} ({len(df_main)} dòng, {num_graphs} đồ thị)")
 
-    # 4. Xử lý Thư mục 3 (Bài 3 Overhead)
-    df_bai3 = process_bai3_overhead(DIR_RESULTS_3)
-    if df_bai3 is not None:
-        csv_bai3_path = os.path.join(timestamped_output_dir, "2_Boc_tach_chi_phi_PPO_Overhead.csv")
-        df_bai3.to_csv(csv_bai3_path, index=False, encoding='utf-8-sig')
-        print(f"    -> Đã xuất bảng bóc tách chi phí PPO: {csv_bai3_path}")
-
-    # 5. Xử lý Thư mục 2 (Bài 2 Runs)
-    df_bai2 = process_bai2_runs(DIR_RESULTS_2)
-    if df_bai2 is not None:
-        csv_bai2_path = os.path.join(timestamped_output_dir, "3_Chi_tiet_runs_Bai2.csv")
-        df_bai2.to_csv(csv_bai2_path, index=False, encoding='utf-8-sig')
-        print(f"    -> Đã xuất dữ liệu chi tiết Bài 2: {csv_bai2_path}")
-
-    # 6. Xuất file Markdown TỔNG HỢP toàn bộ đồ thị
+    # 4. Xuất file Markdown TỔNG HỢP toàn bộ đồ thị
     master_dynamic_name = f"Tong_hop_toan_bo_{num_graphs}_do_thi.md"
     master_md_path = os.path.join(timestamped_output_dir, master_dynamic_name)
-    generate_master_markdown_report(df_main, df_bai3, master_md_path, "chi_tiet_tung_do_thi")
+    generate_master_markdown_report(df_main, master_md_path, "chi_tiet_tung_do_thi")
 
     master_compat_path = os.path.join(timestamped_output_dir, "Tong_hop_toan_bo_28_do_thi.md")
-    generate_master_markdown_report(df_main, df_bai3, master_md_path, "chi_tiet_tung_do_thi")
     shutil.copy2(master_md_path, master_compat_path)
     print(f"    -> Đã xuất file Markdown TỔNG HỢP: {master_md_path}")
 
-    # 7. Đồng bộ tự động toàn bộ file kết quả chính ra thư mục gốc Tong_hop_so_lieu_phan_bien/
+    # 5. Đồng bộ tự động toàn bộ file kết quả chính ra thư mục gốc Tong_hop_so_lieu_phan_bien/
     for fname in [
         csv_dynamic_name,
         "1_Bang_tong_hop_28_do_thi_cong_bang.csv",
         master_dynamic_name,
-        "Tong_hop_toan_bo_28_do_thi.md",
-        "2_Boc_tach_chi_phi_PPO_Overhead.csv",
-        "3_Chi_tiet_runs_Bai2.csv"
+        "Tong_hop_toan_bo_28_do_thi.md"
     ]:
         src = os.path.join(timestamped_output_dir, fname)
         dst = os.path.join(PARENT_OUTPUT_DIR, fname)

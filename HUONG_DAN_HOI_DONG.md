@@ -13,65 +13,72 @@ Nhóm nghiên cứu trân trọng gửi tới Quý Hội đồng toàn bộ gói
 ### 1. BẮT ĐẦU NHANH (QUICK START - 1 CLICK)
 
 > [!IMPORTANT]
-> **Điểm khởi chạy duy nhất:** Quý Thầy/Cô chỉ cần nhấp đúp vào:
+> **Khởi chạy trực quan nhanh nhất:** Quý Thầy/Cô chỉ cần nhấp đúp chuột vào tệp:
 > ```cmd
 > CHAY_CHUONG_TRINH_TONG.bat
 > ```
-> *(Nếu máy tính mới chưa cài đặt môi trường Python/CUDA, vui lòng nhấp đúp `setup.bat` ở thư mục gốc trước).*
+> *(Hoặc tệp phím tắt `CHAY.bat` tại thư mục gốc. Nếu máy tính mới chưa cài đặt môi trường, vui lòng nhấp đúp `setup.bat` trước).*
 
-#### Giao diện Menu Tổng hợp (`CHAY_CHUONG_TRINH_TONG.bat`):
-* **`[1]` Chạy thực nghiệm Bài 1:** Giải bài toán MSCC với EVO-RL trên 30 đồ thị benchmark.
-* **`[2]` Chạy thực nghiệm Bài 2:** Đánh giá tính phù hợp DRL (PPO vs MAB, Greedy, Random).
-* **`[3]` Chạy thực nghiệm Bài 3:** Phân tích chi phí vi giây, Overhead và điểm hòa vốn DRL.
-* **`[4]` Chạy đồng thời Bài 2 & Bài 3:** Kích hoạt song song 2 bài báo để tiết kiệm thời gian.
-* **`[5]` Xuất biểu đồ phân tích:** Tự động vẽ 7 dạng biểu đồ 300 DPI và vector PDF vào `Chart_seed/`.
-* **`[6]` Tổng hợp số liệu phân tích:** Trích xuất tự động ma trận kết quả 28 đồ thị, CSV và Markdown.
-* **`[7]` Tái xuất báo cáo Markdown:** Kết xuất lại file `.md` cho Bài 2 & Bài 3 từ CSV có sẵn.
-* **`[8]` Kiểm tra toàn diện hệ thống:** Chạy tự động 9 giai đoạn kiểm chứng (< 6 giây).
-* **`[9]` Thiết lập môi trường & GPU:** Cài đặt thư viện và kiểm tra card đồ họa NVIDIA CUDA.
-* **`[0]` Thoát chương trình.**
+#### Giao diện Menu Điều khiển Trực quan (`CHAY_CHUONG_TRINH_TONG.bat`):
+* **`--- [A] CHƯƠNG TRÌNH THỰC NGHIỆM (EVO-RL MSCC) ---`**
+  * **`[1]` Chạy Test Nhanh:** Thử nghiệm ngay trên 4 đồ thị nhỏ (`karate`, `chesapeake`, `dolphins`, `johnson8-2-4`).
+  * **`[2]` Chạy Nhóm 1 - 12 Mạng Thực Tế:** Thực nghiệm nhóm mạng phức Type 1 (`karate`, `jazz`, `email`, `netscience`...).
+  * **`[3]` Chạy Nhóm 2 - 18 Đồ Thị DIMACS:** Thực nghiệm nhóm đồ thị chuẩn DIMACS Type 2 (`johnson`, `brock`, `gen`, `san`...).
+  * **`[4]` Chạy Toàn Bộ 30 Đồ Thị Benchmark:** Thực nghiệm đầy đủ 30 đồ thị chuẩn quốc tế (Type 1 + Type 2).
+  * **`[5]` Tùy Chọn Đồ Thị Theo Tên:** Nhập hoặc dán danh sách tên đồ thị tùy ý để chạy.
+  * **`[6]` Giao Diện Tương Tác Chọn Đồ Thị TUI:** Dùng phím mũi tên [▲/▼], phím Space [X] và Enter để chọn đồ thị.
+  * **`[7]` Tùy Chỉnh Siêu Tham Số Nâng Cao:** Thiết lập $s$, số seeds (mặc định 20), số workers (10), epochs (200), pop_size (100).
+* **`--- [B] XUẤT BIỂU ĐỒ, SỐ LIỆU VÀ BÁO CÁO KHOA HỌC ---`**
+  * **`[8]` Xuất Biểu Đồ Phân Tích & Hội Tụ:** Tự động tạo thư mục `Chart_seed/` chứa 7 biểu đồ 600 DPI (PNG) và Vector PDF.
+  * **`[9]` Tổng Hợp Bảng Số Liệu Báo Cáo:** Trích xuất tự động ma trận kết quả 30 đồ thị, CSV và báo cáo Markdown.
+* **`--- [C] CÔNG CỤ VÀ TIỆN ÍCH HỆ THỐNG ---`**
+  * **`[10]` Kiểm Tra Toàn Diện Hệ Thống:** Chạy tự động 9 giai đoạn kiểm chứng (< 5 giây).
+  * **`[11]` Thiết Lập Môi Trường & GPU:** Cài đặt thư viện tự động và kiểm tra card đồ họa NVIDIA CUDA.
+  * **`[0]` Thoát chương trình.**
 
 ---
 
-### 2. KIỂM CHỨNG NHANH TOÀN HỆ THỐNG TRONG 6 GIÂY
+### 2. KIỂM CHỨNG NHANH TOÀN HỆ THỐNG TRONG 5 GIÂY
 
 Để đánh giá nhanh tính toàn vẹn của mã nguồn, thư viện và dữ liệu trước khi nghiệm thu:
-* **Cách 1:** Chọn phím **`[8]`** trong `CHAY_CHUONG_TRINH_TONG.bat`.
+* **Cách 1:** Chọn phím **`[10]`** trong `CHAY_CHUONG_TRINH_TONG.bat`.
 * **Cách 2:** Mở thư mục **`Run.bat/`** và nhấp đúp `verify_all.bat`.
 * **Cách 3:** Chạy lệnh Terminal: `python verify_system.py`.
 
 *Kết quả kiểm chứng chuẩn khi đạt:*
 ```text
-[✓] TẤT CẢ 9/9 GIAI ĐOẠN ĐÃ VƯỢT QUA XUẤT SẮC! (~5.9s)
+[✓] TẤT CẢ 9/9 GIAI ĐOẠN ĐÃ VƯỢT QUA XUẤT SẮC! (~5s)
 Hệ thống 'Sanpham_nckh' đạt chuẩn 100% tính độc lập, khả chuyển và sẵn sàng nộp Hội đồng!
 ```
 
 ---
 
-### 3. CẤU TRÚC GÓI SẢN PHẨM & CÁC TỆP RUNNER
+### 3. CẤU TRÚC GÓI SẢN PHẨM TINH GỌN
 
-Toàn bộ các tệp thực thi chi tiết đã được gom gọn gàng vào thư mục `Run.bat/`, ở thư mục gốc chỉ để lại **Chương trình Tổng** và tệp **cài đặt môi trường**:
+Toàn bộ các tệp thực thi chi tiết đã được gom gọn gàng, trực quan và dễ sử dụng:
 
 ```text
 Sanpham_nckh/
-├── CHAY_CHUONG_TRINH_TONG.bat   <-- [CHÍNH] Menu tổng điều khiển tất cả tính năng
-├── setup.bat                    <-- Cài đặt môi trường tự động (chạy 1 lần khi sang máy mới)
+├── CHAY_CHUONG_TRINH_TONG.bat   <-- [CHÍNH] Menu tổng điều khiển trực quan tất cả tính năng
+├── CHAY.bat                    <-- Phím tắt 1-Click nhanh khởi chạy Menu Tổng
+├── setup.bat                    <-- Cài đặt môi trường tự động (Python, CUDA, thư viện)
 │
 ├── Run.bat/                     <-- THƯ MỤC CHỨA CÁC RUNNER CHI TIẾT:
-│   ├── run.bat                  <-- Runner Bài 1 (Menu thuật toán EVO-RL, 30 đồ thị)
-│   ├── run_bai2.bat             <-- Runner Bài 2 (Đánh giá tính phù hợp DRL)
-│   ├── run_bai3.bat             <-- Runner Bài 3 (Phân tích chi phí & Overhead)
-│   ├── run_both_bai2_and_bai3.bat <-- Runner chạy song song độc lập cả Bài 2 & Bài 3
-│   ├── runbieudo.bat            <-- Xuất biểu đồ chuẩn 300 DPI & Vector PDF
+│   ├── run.bat                  <-- Runner thực nghiệm EVO-RL MSCC (30 đồ thị)
+│   ├── runbieudo.bat            <-- Xuất biểu đồ chuẩn 600 DPI & Vector PDF (Chart_seed)
 │   ├── run_tong_hop_so_lieu.bat <-- Trích xuất và tổng hợp báo cáo số liệu
 │   ├── verify_all.bat           <-- Kiểm chứng tự động 9 giai đoạn mã nguồn
-│   └── RUN_ALL.bat              <-- Phím tắt chuyển tiếp tới CHAY_CHUONG_TRINH_TONG
+│   └── RUN_ALL.bat              <-- Phím tắt chuyển tiếp tới CHAY_CHUONG_TRINH_TONG.bat
 │
-├── pbodulieu/                   <-- Bộ 30 đồ thị benchmark chuẩn (2.03 MB, độc lập 100%)
-├── results/                     <-- Cơ sở dữ liệu kết quả Bài 1 (30 đồ thị x 20 seeds x 8 thuật toán)
-├── Bai_2_DeepRL_AOS_Suitability/<-- Mã nguồn & cơ sở dữ liệu kết quả Bài báo 2 (results_bai2/)
-├── Bai_3_Cost_Benefit_Analysis/ <-- Mã nguồn & cơ sở dữ liệu kết quả Bài báo 3 (results_bai3/)
-└── Tong_hop_so_lieu_phan_bien/  <-- Bộ công cụ tổng hợp số liệu phản biện & đối chuẩn Mục 4.4
+├── configs/                     <-- Cấu hình siêu tham số giải thuật (khóa cứng chuẩn đối chuẩn)
+├── dataset/ & problem/          <-- Nạp đồ thị, mô hình hóa SClubGraph, Individual, Fitness
+├── operators/                   <-- Toán tử di truyền Crossover, Mutation (Split/Merge/Transfer), Repair
+├── rl/ & environment/           <-- Não bộ Deep RL: Mạng Actor-Critic MLP, MDP Gym Environment, Reward
+├── trainer/ & analysis/         <-- Vòng lặp tiến hóa lai (GGA + PPO), vẽ biểu đồ 600 DPI
+│
+├── pbodulieu/                   <-- Bộ 30 đồ thị benchmark chuẩn (12 mạng thực tế + 18 DIMACS)
+├── results/                     <-- Cơ sở dữ liệu kết quả thực nghiệm (30 đồ thị x 20 seeds x 8 thuật toán)
+└── Tong_hop_so_lieu_phan_bien/  <-- Bộ công cụ tổng hợp số liệu đối chuẩn & bảng Markdown
 ```
 
 ---
@@ -82,10 +89,8 @@ Toàn bộ kết quả thực nghiệm chính thức đã được chạy sẵn 
 
 | Nhóm kết quả | Vị trí lưu trữ | Tệp báo cáo chính | Nội dung & Chỉ số cốt lõi |
 | :--- | :--- | :--- | :--- |
-| **Bài báo 1**<br>*(EVO-RL MSCC)* | `results/ketqua_2026-09-13_11-43-21/` | `Tong_20_lan_seed.md`<br>`summary_metrics.csv`<br>`Chart_seed/` | 30 đồ thị $\times$ 20 seeds $\times$ 8 thuật toán: Best/Mean/Std $\|C\|$, thời gian chạy, kiểm định thống kê Wilcoxon ($p < 0.05$), 7 biểu đồ 300 DPI. |
-| **Bài báo 2**<br>*(DRL Suitability)* | `Bai_2_DeepRL_AOS_Suitability/results_bai2/` | `Tong_hop_so_lieu_Bai_2.md` | Bảng xếp hạng đa tiêu chí, tỷ lệ Win/Tie/Loss vs PPO, động thái chọn toán tử (`Split`, `Merge`, `Transfer`) qua 3 giai đoạn tiến hóa. |
-| **Bài báo 3**<br>*(Cost-Benefit)* | `Bai_3_Cost_Benefit_Analysis/results_bai3/` | `Tong_hop_so_lieu_Bai_3.md` | Bóc tách chi phí vi giây (PPO Overhead < 1.5%), RAM đỉnh < 600 MB, phân tích điểm hòa vốn Pareto và Time Budget. |
-| **Tổng hợp phản biện**<br>*(Mục 4.4)* | `Tong_hop_so_lieu_phan_bien/` | `1_Bang_tong_hop_28_do_thi_cong_bang.csv`<br>`Tong_hop_toan_bo_28_do_thi.md` | Ma trận đối đầu 28 đồ thị chuẩn hóa, hiệu chỉnh đa kiểm định Holm-Bonferroni, bảng số liệu định dạng LaTeX sẵn sàng nhúng báo cáo. |
+| **Thực nghiệm EVO-RL MSCC** | `results/ketqua_2026-09-13_11-43-21/` | `Tong_20_lan_seed.md`<br>`summary_metrics.csv`<br>`Chart_seed/` | 30 đồ thị $\times$ 20 seeds $\times$ 8 thuật toán: Best/Mean/Std $\|C\|$, thời gian chạy, kiểm định thống kê Wilcoxon ($p < 0.05$), 7 biểu đồ 600 DPI và vector PDF. |
+| **Tổng hợp số liệu đối chuẩn** | `Tong_hop_so_lieu_phan_bien/` | `1_Bang_tong_hop_30_do_thi_cong_bang.csv`<br>`Tong_hop_toan_bo_30_do_thi.md` | Ma trận đối đầu 30 đồ thị chuẩn hóa, hiệu chỉnh đa kiểm định Holm-Bonferroni, bảng chi tiết từng đồ thị kèm liên kết Markdown. |
 
 ---
 
@@ -93,8 +98,8 @@ Toàn bộ kết quả thực nghiệm chính thức đã được chạy sẵn 
 
 1. **Khắc phục triệt để bài toán mở chọn toán tử tĩnh (TS. Phạm Đình Thành - 2024):** Thay thế tỷ lệ đột biến tĩnh 33% bằng PPO-AOS học trực tuyến thích nghi theo động thái quần thể.
 2. **Vector trạng thái 5 chiều nén ($S_t$) & Chuẩn hóa Welford:** Nén toàn bộ động học của 100 cá thể thành vector 5D $[f_{\min}^{\text{norm}}, f_{\text{avg}}^{\text{norm}}, \rho_{\text{feas}}, \bar{\phi}^{\text{norm}}, \tau^{\text{norm}}]$ giúp mô hình học nhanh, không bùng nổ không gian trạng thái.
-3. **Vượt trội SOTA trên 28/28 đồ thị đối chuẩn công bằng:** `PPO-AOS` đạt kích thước tập phủ nhỏ hơn hoặc tương đương với ý nghĩa thống kê cao ($p < 0.05$ qua kiểm định Wilcoxon có hiệu chỉnh Holm-Bonferroni).
-4. **Định lượng chi phí tính toán (Overhead) cực thấp:** Bài báo 3 chỉ ra chi phí suy luận nơ-ron PPO chỉ chiếm **< 1.5%** tổng thời gian, chứng minh tính khả thi ứng dụng thực tế vượt trội.
+3. **Hàm phần thưởng Feasibility-Aware 4 thành phần:** Định hướng cân bằng giữa thu gọn kích thước tập phủ và sửa sai nghiệm không khả thi.
+4. **Vượt trội SOTA trên 30 đồ thị benchmark đối chuẩn công bằng:** `PPO-AOS` đạt kích thước tập phủ nhỏ hơn hoặc tương đương với ý nghĩa thống kê cao ($p < 0.05$ qua kiểm định Wilcoxon có hiệu chỉnh Holm-Bonferroni).
 
 ---
 *Kính chúc Quý Thầy/Cô trong Hội đồng sức khỏe và có phiên đánh giá thành công tốt đẹp!*  

@@ -92,7 +92,7 @@ goto end
 :opt_all_benchmark
 echo.
 echo [*] Bat dau chay toan bo 30 do thi Benchmark chuan...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "karate,chesapeake,dolphins,lesmis,polbooks,adjnoun,football,jazz,celegansneural,netscience,celegans_metabolic,email,johnson8-2-4,hamming6-2,hamming6-4,johnson8-4-4,MANN_a9,C125.9,johnson16-2-4,keller4,c-fat200-1,c-fat200-5,brock200_1,brock200_2,brock200_3,gen200_p0.9_44,gen200_p0.9_55,san200_0.9_2,san200_0.9_3,hamming8-2"
+"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --all
 goto end
 
 :opt_custom_name
@@ -123,7 +123,7 @@ goto end
 :opt_tui
 echo.
 echo [*] Mo giao dien tuong tac chon do thi TUI (Interactive Keyboard Navigation)...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py"
+"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --tui
 goto end
 
 :opt_advanced
@@ -152,7 +152,11 @@ if "%pop_in%"=="" set "pop_in=100"
 
 echo.
 echo [*] Dang khoi chay voi cau hinh tuy chinh...
-"%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "%dset_in%" --s %s_in% --seeds %seed_in% --workers %worker_in% --epochs %epoch_in% --pop_size %pop_in%
+if /i "%dset_in%"=="all" (
+    "%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --all --s %s_in% --seeds %seed_in% --workers %worker_in% --epochs %epoch_in% --pop_size %pop_in%
+) else (
+    "%PYTHON_CMD%" "%SCRIPT_DIR%main.py" --graph "%dset_in%" --s %s_in% --seeds %seed_in% --workers %worker_in% --epochs %epoch_in% --pop_size %pop_in%
+)
 goto end
 
 :invalid

@@ -26,16 +26,8 @@ if not exist "%SCRIPT_DIR%results" (
     echo  [+] Da khoi tao thu muc ket qua: results
 )
 
-if exist "%SCRIPT_DIR%Bai_2_DeepRL_AOS_Suitability" (
-    echo  [+] Da xac nhan thu muc Bai 2: Bai_2_DeepRL_AOS_Suitability
-) else (
-    echo  [!] Canh bao: Chua tim thay thu muc Bai 2
-)
-
-if exist "%SCRIPT_DIR%Bai_3_Cost_Benefit_Analysis" (
-    echo  [+] Da xac nhan thu muc Bai 3: Bai_3_Cost_Benefit_Analysis
-) else (
-    echo  [!] Canh bao: Chua tim thay thu muc Bai 3
+if exist "%SCRIPT_DIR%results" (
+    echo  [+] Da xac nhan thu muc ket qua: results
 )
 
 if exist "%SCRIPT_DIR%pbodulieu" (
@@ -290,13 +282,10 @@ echo  Toan bo he sinh thai thuc nghiem EVO-RL da san sang hoat dong:
 echo   - CHAY_CHUONG_TRINH_TONG.bat: Chuong trinh Tong quan ly tat ca tinh nang (Khuyen nghi)
 echo   - setup.bat                 : Cai dat va cau hinh moi truong tu dong
 echo   - Run.bat\                  : Thu muc chua toan bo runner thuc nghiem chi tiet:
-echo       * run.bat               : Thuc nghiem Bai 1 [EVO-RL MSCC]
-echo       * run_bai2.bat          : Thuc nghiem Bai 2 [Deep RL AOS Suitability]
-echo       * run_bai3.bat          : Thuc nghiem Bai 3 [Cost-Benefit Analysis]
-echo       * run_both_bai2_and_bai3.bat : Chay song song ca Bai 2 va Bai 3
-echo       * runbieudo.bat         : Xuat bieu do phan tich 300 DPI
-echo       * run_tong_hop_so_lieu.bat   : Tong hop so lieu phan tich toan dien
-echo       * verify_all.bat        : Kiem tra xac thuc he thong
+echo       * run.bat               : Thuc nghiem EVO-RL MSCC (30 do thi benchmark)
+echo       * runbieudo.bat         : Xuat bieu do phan tich & hoi tu (600 DPI)
+echo       * run_tong_hop_so_lieu.bat : Tong hop so lieu phan tich toan dien
+echo       * verify_all.bat        : Kiem tra xac thuc 9 giai doan he thong
 echo ===============================================================================
 echo.
 

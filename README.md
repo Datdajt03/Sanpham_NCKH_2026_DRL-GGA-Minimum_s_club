@@ -11,8 +11,8 @@ Hệ thống **EVO-RL MSCC** là giải pháp phần mềm nghiên cứu khoa h�
   * Giải quyết bài toán mở về hạn chế của tỷ lệ đột biến tĩnh 33% (TS. Phạm Đình Thành, 2024).
   * Biểu diễn không gian quan sát qua vector 5 chiều nén $S_t$ kết hợp chuẩn hóa Welford 5D.
   * Hàm phần thưởng Feasibility-Aware 4 thành phần giúp định hướng cân bằng giữa tối ưu tập phủ và sửa sai.
-  * Tối ưu hóa tính toán: PPO Overhead chiếm < 1.5% tổng thời gian thực thi, RAM đỉnh < 600 MB.
-  * Khả chuyển 100%: Tích hợp sẵn 30 đồ thị benchmark chuẩn quốc tế (2.03 MB), không dùng NTFS Junction.
+  * Tối ưu hóa tính toán: Tăng tốc GPU NVIDIA CUDA cho mạng Actor-Critic, CPU đa luồng (10 workers song song).
+  * Khả chuyển 100%: Tích hợp sẵn 30 đồ thị benchmark chuẩn quốc tế (12 mạng thực tế + 18 DIMACS).
 
 ---
 
@@ -21,29 +21,25 @@ Hệ thống **EVO-RL MSCC** là giải pháp phần mềm nghiên cứu khoa h�
 ```text
 Sanpham_nckh/
 ├── CHAY_CHUONG_TRINH_TONG.bat   # [1-CLICK] Menu chính điều hành tất cả tính năng sản phẩm
+├── CHAY.bat                    # [1-CLICK] Phím tắt nhanh khởi chạy Menu Tổng
 ├── setup.bat                    # [1-CLICK] Cài đặt môi trường tự động (Python, CUDA, thư viện)
 │
-├── Run.bat/                     # THƯ MỤC CHỨA TOÀN BỘ CÁC RUNNER THỰC NGHIỆM CHI TIẾT
-│   ├── run.bat                  # Thực nghiệm Bài 1 (Khung thuật toán EVO-RL MSCC)
-│   ├── run_bai2.bat             # Thực nghiệm Bài 2 (Đánh giá tính phù hợp DRL)
-│   ├── run_bai3.bat             # Thực nghiệm Bài 3 (Phân tích chi phí & Overhead)
-│   ├── run_both_bai2_and_bai3.bat # Chạy song song độc lập cả Bài 2 và Bài 3
-│   ├── runbieudo.bat            # Xuất biểu đồ chuẩn báo cáo 300 DPI và vector PDF
+├── Run.bat/                     # THƯ MỤC CHỨA CÁC RUNNER THỰC NGHIỆM CHI TIẾT
+│   ├── run.bat                  # Thực nghiệm EVO-RL MSCC (30 đồ thị benchmark)
+│   ├── runbieudo.bat            # Xuất biểu đồ chuẩn 600 DPI (PNG) và vector PDF
 │   ├── run_tong_hop_so_lieu.bat # Tổng hợp số liệu phân tích và đóng gói báo cáo
-│   ├── verify_all.bat           # Bộ kiểm chứng tự động 9 giai đoạn (< 6 giây)
+│   ├── verify_all.bat           # Bộ kiểm chứng tự động 9 giai đoạn (< 5 giây)
 │   └── RUN_ALL.bat              # Phím tắt chuyển tiếp tới CHAY_CHUONG_TRINH_TONG.bat
 │
 ├── configs/                     # Cấu hình siêu tham số giải thuật (khóa cứng chuẩn đối chuẩn)
 ├── dataset/ & problem/          # Nạp đồ thị, mô hình hóa SClubGraph, Individual, Fitness
 ├── operators/                   # Toán tử di truyền Crossover, Mutation (Split/Merge/Transfer), Repair
 ├── rl/ & environment/           # Não bộ Deep RL: Mạng Actor-Critic MLP, MDP Gym Environment, Reward
-├── trainer/ & analysis/         # Vòng lặp tiến hóa lai (GGA + PPO), kiểm định thống kê Wilcoxon/Holm
+├── trainer/ & analysis/         # Vòng lặp tiến hóa lai (GGA + PPO), vẽ biểu đồ 600 DPI
 │
 ├── pbodulieu/                   # Bộ 30 đồ thị benchmark chuẩn (12 mạng thực tế + 18 DIMACS)
-├── results/                     # Kết quả Bài 1 (30 đồ thị x 20 seeds x 8 thuật toán)
-├── Bai_2_DeepRL_AOS_Suitability/# Kết quả Bài 2 (DRL Suitability & Operator Dynamics)
-├── Bai_3_Cost_Benefit_Analysis/ # Kết quả Bài 3 (Cost-Benefit, Breakeven, Time-Budget)
-└── Tong_hop_so_lieu_phan_bien/  # Kết quả tổng hợp phản biện Mục 4.4
+├── results/                     # Kết quả thực nghiệm (30 đồ thị x 20 seeds x 8 thuật toán)
+└── Tong_hop_so_lieu_phan_bien/  # Kết quả tổng hợp đối chuẩn 30 đồ thị & báo cáo Markdown
 ```
 
 ---
@@ -69,17 +65,48 @@ Nhấp đúp chuột vào tệp:
 ```cmd
 CHAY_CHUONG_TRINH_TONG.bat
 ```
-Giao diện hiển thị Menu 10 chức năng (từ 0 đến 9). Quý Thầy/Cô và người dùng chỉ cần nhập số chức năng mong muốn để thực thi (Chạy Bài 1, Bài 2, Bài 3, Xuất biểu đồ, Tổng hợp số liệu, Kiểm chứng...).
+*(hoặc phím tắt `CHAY.bat`)*
 
-#### Cách 2: Kiểm chứng nhanh hệ thống trong 6 giây
+Giao diện hiển thị Menu trực quan, rõ ràng gồm 11 chức năng (từ 0 đến 11):
+- `[1]` Chạy Test Nhanh (Demo 4 đồ thị)
+- `[2]` Chạy Nhóm 1 - 12 Mạng Thực Tế
+- `[3]` Chạy Nhóm 2 - 18 Đồ Thị DIMACS
+- `[4]` Chạy Toàn Bộ 30 Đồ Thị Benchmark Chuẩn Quốc Tế
+- `[5]` Điền Tên Hoặc Dán Danh Sách Đồ Thị Tùy Chọn
+- `[6]` Chế Độ Chọn Đồ Thị Tương Tác TUI (Phím mũi tên, Space, Enter)
+- `[7]` Tùy Chỉnh Siêu Tham Số Nâng Cao (s, seeds, workers, epochs, pop_size)
+- `[8]` Xuất Biểu Đồ Phân Tích & Hội Tụ (600 DPI PNG & Vector PDF)
+- `[9]` Tổng Hợp Bảng Số Liệu Báo Cáo & Kiểm Định Wilcoxon
+- `[10]` Kiểm Tra Toàn Diện Hệ Thống (9 giai đoạn kiểm chứng)
+- `[11]` Thiết Lập Môi Trường & GPU (CUDA)
+- `[0]` Thoát chương trình
+
+#### Cách 2: Khởi chạy trực tiếp bằng Python
+Chạy trực tiếp từ dòng lệnh:
+```bash
+python main.py
+```
+Hệ thống sẽ hiển thị Master Console Menu tương tác trực quan ngay trên terminal. Hoặc truyền tham số trực tiếp:
+```bash
+# Chạy demo 4 đồ thị
+python main.py --graph "karate,chesapeake,dolphins,johnson8-2-4"
+
+# Chạy toàn bộ 30 đồ thị
+python main.py --all
+
+# Mở giao diện TUI chọn đồ thị
+python main.py --tui
+```
+
+#### Cách 3: Kiểm chứng nhanh hệ thống trong 5 giây
 Nhấp đúp `Run.bat\verify_all.bat` hoặc chạy lệnh:
 ```bash
 python verify_system.py
 ```
-Hệ thống tự động thực hiện 9 giai đoạn kiểm tra độc lập (phần cứng GPU CUDA, thư viện, nạp đồ thị, toán tử di truyền, mạng PPO, chạy mini test 2 thế hệ).
+Hệ thống tự động thực hiện 9 giai đoạn kiểm tra độc lập (phần cứng GPU CUDA, thư viện, nạp đồ thị, toán tử di truyền, mạng PPO, chạy mini smoke test 2 thế hệ, kiểm định thống kê Wilcoxon/Holm-Bonferroni).
 
 ---
 
 ### 5. TÀI LIỆU KÈM THEO
-* **Sổ tay hướng dẫn chi tiết dành cho Hội đồng Khoa học:** [HUONG_DAN_HOI_DONG.md](file:///A:/autorc/pcode/Sanpham_nckh/HUONG_DAN_HOI_DONG.md)
-* **Danh sách 20 Hạt giống ngẫu nhiên chuẩn quốc tế:** [seedun.md](file:///A:/autorc\pcode\Sanpham_nckh\seedun.md)
+* **Sổ tay hướng dẫn chi tiết dành cho Hội đồng Khoa học:** [HUONG_DAN_HOI_DONG.md](file:///c:/Users/DD03/Downloads/Baocaotongket/Sanpham_nckh/HUONG_DAN_HOI_DONG.md)
+* **Danh sách 20 Hạt giống ngẫu nhiên chuẩn quốc tế:** [seedun.md](file:///c:/Users/DD03/Downloads/Baocaotongket/Sanpham_nckh/seedun.md)

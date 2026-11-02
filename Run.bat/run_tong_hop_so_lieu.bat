@@ -4,9 +4,9 @@ chcp 65001 >nul
 title Tong Hop So Lieu Phan Tich Toan Dien
 
 echo ===============================================================================
-echo   TONG HOP VA DONG GOI SO LIEU PHAN TICH TOAN DIEN
-echo   (Tap phu |C|, Thoi gian chay, So lan danh gia N_evals, Chi phi Overhead)
-echo   Doc du lieu tu 3 thu muc: results/, results_bai2/, results_bai3/
+echo   TONG HOP VA DONG GOI SO LIEU PHAN TICH TOAN DIEN (EVO-RL MSCC)
+echo   (Tap phu ^|C^|, Thoi gian chay, So lan danh gia N_evals, Kiem dinh Wilcoxon)
+echo   Doc du lieu thuc nghiem 30 do thi benchmark tu thu muc: results/
 echo ===============================================================================
 echo.
 
@@ -35,7 +35,7 @@ if exist "%SCRIPT_DIR%.venv\Scripts\python.exe" (
     set "PYTHON_CMD=C:\miniconda3\python.exe"
 )
 
-echo [*] Dang tong hop du lieu tu 3 thu muc va dong goi theo thoi gian...
+echo [*] Dang tong hop du lieu tu thu muc results/ va dong goi theo thoi gian...
 "%PYTHON_CMD%" "%SCRIPT_DIR%Tong_hop_so_lieu_phan_bien\extract_and_consolidate.py" %*
 set "EXTRACT_EXIT_CODE=%ERRORLEVEL%"
 

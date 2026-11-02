@@ -5,7 +5,7 @@ Dự án: Khung tối ưu hóa tiến hóa kết hợp học tăng cường sâu
 Đặc điểm:
   - Tự vận hành 100% độc lập, không phụ thuộc file hay đường dẫn ngoài.
   - Kiểm tra toàn diện từ phần cứng, dữ liệu, mô hình, toán tử, mạng nơ-ron PPO,
-    môi trường Gym, vòng lặp tiến hóa lai (smoke test), kiểm định thống kê và liên kết 3 bài báo.
+    môi trường Gym, vòng lặp tiến hóa lai (smoke test), kiểm định thống kê và tính toàn vẹn hệ thống.
   - Thời gian thực thi: < 25 giây.
   - Mã thoát: 0 khi đạt tất cả các giai đoạn, 1 khi có lỗi.
 """
@@ -66,7 +66,7 @@ class VerificationSuite:
             ("Stage 6: PPO Neural Network Controller Architecture", self.stage6_ppo_controller),
             ("Stage 7: Markov Decision Process (Gym Environment)", self.stage7_environment_mdp),
             ("Stage 8: End-to-End Hybrid Evolutionary Mini-Run", self.stage8_mini_pipeline_smoke_test),
-            ("Stage 9: Statistical Analysis & Multi-Paper Integration", self.stage9_statistical_reporting),
+            ("Stage 9: Statistical Analysis & System Integrity Verification", self.stage9_statistical_reporting),
         ]
 
         passed_count = 0
@@ -366,7 +366,7 @@ class VerificationSuite:
         )
 
     # =========================================================================
-    # STAGE 9: Statistical Analysis & Multi-Paper Integration
+    # STAGE 9: Statistical Analysis & System Integrity Verification
     # =========================================================================
     def stage9_statistical_reporting(self) -> str:
         from analysis.statistics import compute_p_value, compute_condition_statistics
@@ -380,30 +380,11 @@ class VerificationSuite:
         if len(p_adj) != 3:
             raise ValueError("Holm-Bonferroni hiệu chỉnh sai kích thước vector")
 
-        try:
-            import Bai_2_DeepRL_AOS_Suitability
-        except ImportError:
-            import DeepRL_AOS_Suitability as Bai_2_DeepRL_AOS_Suitability
-
-        try:
-            import Bai_3_Cost_Benefit_Analysis
-        except ImportError:
-            import Cost_Benefit_Analysis as Bai_3_Cost_Benefit_Analysis
-
         import Tong_hop_so_lieu_phan_bien
 
         res1 = os.path.join(SCRIPT_DIR, "results", "ketqua_2026-09-13_11-43-21")
-        res2 = os.path.join(SCRIPT_DIR, "Bai_2_DeepRL_AOS_Suitability", "results_bai2")
-        if not os.path.isdir(res2):
-            res2 = os.path.join(SCRIPT_DIR, "DeepRL_AOS_Suitability", "results_bai2")
-
-        res3 = os.path.join(SCRIPT_DIR, "Bai_3_Cost_Benefit_Analysis", "results_bai3")
-        if not os.path.isdir(res3):
-            res3 = os.path.join(SCRIPT_DIR, "Cost_Benefit_Analysis", "results_bai3")
-
-        for r_path, r_desc in [(res1, "Bài 1 (30 đồ thị)"), (res2, "Bài 2 (results_bai2)"), (res3, "Bài 3 (results_bai3)")]:
-            if not os.path.isdir(r_path) or len(os.listdir(r_path)) == 0:
-                raise FileNotFoundError(f"Thiếu kết quả mẫu chạy sẵn: {r_desc} tại {r_path}")
+        if not os.path.isdir(res1) or len(os.listdir(res1)) == 0:
+            raise FileNotFoundError(f"Thiếu kết quả mẫu chạy sẵn: EVO-RL MSCC (30 đồ thị) tại {res1}")
 
         code_product_files = [
             "main.py",
@@ -419,9 +400,6 @@ class VerificationSuite:
             os.path.join("Run.bat", "run.bat"),
             os.path.join("Run.bat", "runbieudo.bat"),
             os.path.join("Run.bat", "RUN_ALL.bat"),
-            os.path.join("Run.bat", "run_bai2.bat"),
-            os.path.join("Run.bat", "run_bai3.bat"),
-            os.path.join("Run.bat", "run_both_bai2_and_bai3.bat"),
             os.path.join("Run.bat", "run_tong_hop_so_lieu.bat"),
             os.path.join("Run.bat", "verify_all.bat")
         ]
@@ -430,7 +408,7 @@ class VerificationSuite:
             if not os.path.exists(cf_full):
                 raise FileNotFoundError(f"Thiếu tệp thành phần mã nguồn then chốt: {cf}")
 
-        return "Thống kê Wilcoxon/Holm-Bonferroni OK | Kết quả sẵn có 3 Bài báo đầy đủ | Toàn bộ gói sản phẩm mã nguồn hoàn thiện"
+        return "Thống kê Wilcoxon/Holm-Bonferroni OK | Kết quả sẵn có EVO-RL MSCC (30 đồ thị) đầy đủ | Toàn bộ gói sản phẩm mã nguồn hoàn thiện"
 
 
 if __name__ == "__main__":
